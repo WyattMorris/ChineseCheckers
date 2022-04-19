@@ -46,7 +46,11 @@ public class MenuInput implements MouseListener, ActionListener {
         }
         if(xloc >= 325 && xloc <= 475){
             if(yloc >= 300 && yloc <= 350){
-                // rules
+                GameBoard.myGame.getContentPane().removeAll();
+                GameBoard.myGame.getContentPane().invalidate();
+                GameBoard.myGame.getContentPane().add(GameBoard.rules);
+                GameBoard.myGame.getContentPane().revalidate();
+                GameBoard.myGame.getContentPane().repaint();
                 System.out.println("Clicked Rules");
             }
         }

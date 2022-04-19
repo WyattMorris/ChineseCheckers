@@ -6,6 +6,7 @@ Author: Wyatt Morris
 import com.boardgame.Main;
 import com.boardgame.menu.MenuFrame;
 import com.boardgame.menu.MenuInput;
+import com.boardgame.rules.RulesInput;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -30,14 +31,18 @@ public class GameBoard {
     public static int playerCount = 6;
     public static JFrame myGame;
     public static Board board;
+    public static Rules rules;
+    public static Menu menu;
     public static void main(String[] args) {
         myGame = new JFrame("Chinese Checkers");
         initializeCoordinates();
         initializePieces();
-        Menu menu = new Menu();
+        menu = new Menu();
         board = new Board();
+        rules = new Rules();
         myGame.add(menu);
         menu.addMouseListener(new MenuInput());
+        rules.addMouseListener(new RulesInput());
         board.setBackground(lightGray);
         myGame.setSize(800, 800);
         myGame.setVisible(true);
@@ -354,6 +359,7 @@ public class GameBoard {
         }
 
 
+        // BOARD CLASS ***************************************************
         static class Board extends JPanel {
             public Board() {
                 super();
@@ -379,7 +385,7 @@ public class GameBoard {
         }
 
 
-
+    // MENU CLASS ***************************************************
         static class Menu extends JPanel {
 
             public Menu() {
@@ -419,7 +425,58 @@ public class GameBoard {
             }
         }
 
+    // RULES CLASS ***************************************************
+
+    static class Rules extends JPanel{
+
+        public Rules(){
+            super();
+        }
+            public void paintComponent(Graphics g){
+                ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+                g.drawImage(img.getImage(), 0, 0, null);
+                super.paintComponent(g);
+                render(g);
+            }
+        public Rectangle menuBtn = new Rectangle(290, 675, 250, 50);
+
+        public void render(Graphics g){
+            Graphics2D g2d = (Graphics2D) g;
+            Font titleFont = new Font("Arial", Font.ITALIC, 40);
+            Font textFont = new Font("Arial", Font.ITALIC, 20);
+            g.setFont(titleFont);
+            g.setColor(Color.BLACK);
+            g.drawString("Rules:", 50, 75);
+            Font btnFont = new Font("Arial", Font.ITALIC, 30);
+            g.setFont(textFont);
+            g.drawString("1.) Players take turns to move a single peg of their own colour.", 50, 110);
+            g.drawString("2.) In one turn a peg may either be simply moved into an adjacent hole", 50, 140);
+            g.drawString("OR it may make one or more hops over other pegs.", 50, 170);
+            g.drawString("3.) Where a hopping move is made, each hop must be over an adjacent peg", 50, 200);
+            g.drawString("and into a the vacant hole directly beyond it.", 50, 230);
+            g.drawString("4.) Each hop may be over any coloured peg including the player's own", 50, 260);
+            g.drawString("and can proceed in any one of the six directions. ", 50, 290);
+            g.drawString("5.) After each hop, the player may either finish or, if possible and desired,", 50, 320);
+            g.drawString("continue by hopping over another peg.", 50, 350);
+            g.drawString("6.) Occasionally, a player will be able to move a peg all the way from the", 50, 380);
+            g.drawString("starting triangle across the board and into the opposite triangle in one turn!\n", 50, 410);
+            g.drawString("7.)Pegs are never removed from the board. Once a peg has reached the ", 50, 440);
+            g.drawString("opposite triangle, it may not be moved out of the triangle - only within the triangle.", 50, 470);
+
+            g.setFont(btnFont);
+            g.drawString("Return to Menu", menuBtn.x + 25, menuBtn.y + 35);
+            g2d.draw(menuBtn);
+
+        }
+
     }
+
+
+
+
+
+
+}
 
 
 
