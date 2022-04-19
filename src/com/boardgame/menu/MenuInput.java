@@ -1,6 +1,8 @@
 package com.boardgame.menu;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -8,12 +10,18 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 
 import com.boardgame.Main;
+import com.boardgame.board.GameBoard;
 import com.boardgame.menu.MenuFrame;
 
-//Collin's method to take in mouse clicks on Menu.
-public class MenuInput implements MouseListener  {
 
-    private Main.STATE state = Main.STATE.MENU;
+
+//Collin's method to take in mouse clicks on Menu.
+public class MenuInput implements MouseListener, ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -26,7 +34,11 @@ public class MenuInput implements MouseListener  {
         if(xloc >= 330 && xloc <= 480){
             if(yloc >= 230 && yloc <= 280){
                 System.out.println("Clicked Play");
-                state = Main.STATE.GAME;
+                GameBoard.myGame.getContentPane().removeAll();
+                GameBoard.myGame.getContentPane().invalidate();
+                GameBoard.myGame.getContentPane().add(GameBoard.board);
+                GameBoard.myGame.getContentPane().revalidate();
+                GameBoard.myGame.getContentPane().repaint();
             }
         }
         if(xloc >= 330 && xloc <= 480){
