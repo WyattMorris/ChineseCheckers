@@ -18,17 +18,16 @@ public class GameBoard {
     private static final int BoardSize = 25;
     private static final int[] rowWidth = {1,2,3,4,13,12,11,10,9,10,11,12,13,4,3,2,1};
     private static final int[] rowSpaces = {6,5,5,4,0,0,1,1,2,1,1,0,0,4,5,5,6};
-    private static final LinkedList<Coordinates> myCoordinates = new LinkedList<Coordinates>();
-    private static final LinkedList<Piece> myList = new LinkedList<Piece>();
+    private static final LinkedList<Coordinates> myCoordinates = new LinkedList<>();
+    private static final LinkedList<Piece> myList = new LinkedList<>();
 
     public static Piece selectedPiece = null;
+    public static int playerCount = 2;
 
     public static void main() {
         JFrame myGame = new JFrame("Chinese Checkers");
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screen = tk.getScreenSize();
-        initializeCoordinates(800);
-        initializePieces(800);
+        initializeCoordinates();
+        initializePieces();
         Board board = new Board();
         board.setBackground(lightGray);
         myGame.add(board);
@@ -44,7 +43,7 @@ public class GameBoard {
             public void mousePressed(MouseEvent e) {
                 if(selectedPiece == null){
                     for(Piece p : myList){
-                        if (p.piece.contains(e.getPoint())) {
+                        if (p.piece.contains(e.getPoint()) && p.color != gray) {
                             selectedPiece = p;
                         }
                     }
@@ -105,11 +104,11 @@ public class GameBoard {
         myGame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void initializeCoordinates(int squareSide){
+    public static void initializeCoordinates(){
+        int squareSide;
         squareSide = 32;
-        Color pieceColor = gray;
         int k = 1;
-        int offset = 0;
+        int offset;
         for(int i = 0; i < rowSpaces.length; i++){
             for(int j = 0; j < rowWidth[i]; j++){
                 //Calculate the offset
@@ -118,17 +117,18 @@ public class GameBoard {
                 } else {
                     offset = 0;
                 }
-                myCoordinates.add(new Coordinates((int) (rowSpaces[i] *squareSide + squareSide*j + offset + squareSide*BoardSize/4.5), (int) (k * squareSide + squareSide*BoardSize/12)));
+                myCoordinates.add(new Coordinates((int) (rowSpaces[i] *squareSide + squareSide*j + offset + squareSide*BoardSize/4.5), (k * squareSide + squareSide*BoardSize/12)));
             }
             k++;
         }
     }
 
-    public static void initializePieces(int squareSide){
+    public static void initializePieces(){
+        int squareSide;
         squareSide = 32;
         int x;
         int y;
-        Color pieceColor = GRAY;
+        Color pieceColor;
 
         for(int i = 0; i < myCoordinates.size(); i++) {
             x = myCoordinates.get(i).getX();
@@ -142,7 +142,7 @@ public class GameBoard {
                 myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));
             }else if (i > 18 && i < 23) {
                 pieceColor = black;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));;
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));
             } else if (i > 22 && i < 26) {
                 pieceColor = yellow;
                 myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));

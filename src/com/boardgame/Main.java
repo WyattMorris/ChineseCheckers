@@ -1,13 +1,6 @@
 package com.boardgame;
 
 import com.boardgame.board.GameBoard;
-import com.boardgame.menu.*;
-import com.boardgame.rules.RulesFrame;
-import com.boardgame.rules.RulesInput;
-
-//import com.boardgame.board.GameBoard;
-
-import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -16,12 +9,12 @@ public class Main {
         RULES,
         GAME,
         QUIT
-    };
-    public static Toolkit tk = Toolkit.getDefaultToolkit();
-    public static Dimension screen = tk.getScreenSize();
+    }
+//    public static Toolkit tk = Toolkit.getDefaultToolkit();
+//    public static Dimension screen = tk.getScreenSize();
     public static STATE State = STATE.MENU;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
 /*
             State = STATE.MENU;
@@ -42,11 +35,11 @@ public class Main {
             rframe.addMouseListener(new RulesInput());
         }
         */
-        State = STATE.GAME;
-        if (State == STATE.GAME) {
-            GameBoard game = new GameBoard();
-            GameBoard.main();
-        }
+//        State = STATE.GAME;
+//        if (State == STATE.GAME) {
+//            GameBoard game = new GameBoard();
+//            GameBoard.main();
+//        }
 
 
         }
