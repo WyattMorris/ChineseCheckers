@@ -35,11 +35,11 @@ public class Main {
             rframe.addMouseListener(new RulesInput());
         }
         */
-//        State = STATE.GAME;
-//        if (State == STATE.GAME) {
-//            GameBoard game = new GameBoard();
-//            GameBoard.main();
-//        }
+        State = STATE.GAME;
+        if (State == STATE.GAME) {
+            GameBoard game = new GameBoard();
+            GameBoard.main();
+        }
 
 
         }

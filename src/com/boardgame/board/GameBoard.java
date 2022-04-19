@@ -22,7 +22,7 @@ public class GameBoard {
     private static final LinkedList<Piece> myList = new LinkedList<>();
 
     public static Piece selectedPiece = null;
-    public static int playerCount = 2;
+    public static int playerCount = 6;
 
     public static void main() {
         JFrame myGame = new JFrame("Chinese Checkers");
@@ -128,69 +128,85 @@ public class GameBoard {
         squareSide = 32;
         int x;
         int y;
-        Color pieceColor;
+        Color p1Color = gray;
+        Color p2Color = gray;
+        Color p3Color = gray;
+        Color p4Color = gray;
+        Color p5Color = gray;
+        Color p6Color = gray;
+
+        switch(playerCount){
+            case 6: {
+                p1Color = red;
+                p2Color = black;
+                p3Color = blue;
+                p4Color = green;
+                p5Color = white;
+                p6Color = yellow;
+            }
+                break;
+            case 4: {
+                p2Color = black;
+                p3Color = blue;
+                p5Color = white;
+                p6Color = yellow;
+            }
+                break;
+            case 3: {
+                p2Color = black;
+                p4Color = green;
+                p6Color = yellow;
+            }
+                break;
+            case 2: {
+                p1Color = red;
+                p4Color = green;
+            }
+                break;
+        }
 
         for(int i = 0; i < myCoordinates.size(); i++) {
             x = myCoordinates.get(i).getX();
             y = myCoordinates.get(i).getY();
 
             if (i < 10) {
-                pieceColor = red;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "red", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p1Color, "red", myList));
             } else if (i < 14) {
-                pieceColor = yellow;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p6Color,"yellow", myList));
             }else if (i > 18 && i < 23) {
-                pieceColor = black;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p2Color,"black", myList));
             } else if (i > 22 && i < 26) {
-                pieceColor = yellow;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p6Color,"yellow", myList));
             } else if (i > 31 && i < 35) {
-                pieceColor = black;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p2Color,"black", myList));
             }else if (i > 34 && i < 37) {
-                pieceColor = yellow;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p6Color,"yellow", myList));
             }else if (i > 43 && i < 46) {
-                pieceColor = black;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p2Color,"black", myList));
             }else if (i == 46) {
-                pieceColor = yellow;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"yellow", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p6Color,"yellow", myList));
             } else if (i == 55) {
-                pieceColor = black;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"black", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p2Color,"black", myList));
             }else if (i == 65) {
-                pieceColor = white;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"white", myList));
-            } else if (i == 74) {
-                pieceColor = blue;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "blue",myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p5Color,"white", myList));
+            } else if (i == 74){
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p3Color, "blue",myList));
             }else if (i > 74 && i < 77) {
-                pieceColor = white;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "white",myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p5Color, "white",myList));
             }else if (i > 83 && i < 86) {
-                pieceColor = blue;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "blue",myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p3Color, "blue",myList));
             } else if (i > 85 && i < 89) {
-                pieceColor = white;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"white", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p5Color,"white", myList));
             }else if (i > 94 && i < 98) {
-                pieceColor = blue;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "blue",myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p3Color, "blue",myList));
             }else if (i > 97 && i < 102) {
-                pieceColor = white;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"white", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p5Color,"white", myList));
             }else if (i > 106 && i < 111) {
-                pieceColor = blue;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor, "blue",myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p3Color, "blue",myList));
             }else if (i > 110) {
-                pieceColor = green;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"green", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), p4Color,"green", myList));
             } else {
-                pieceColor = gray;
-                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), pieceColor,"gray", myList));
+                myList.add(new Piece(x, y, x + (squareSide/2), y + (squareSide/2), gray,"gray", myList));
             }
         }
     }
