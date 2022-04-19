@@ -31,8 +31,11 @@ public class MenuInput implements MouseListener, ActionListener {
     public void mousePressed(MouseEvent e) {
         int xloc = e.getX();
         int yloc = e.getY();
-        if(xloc >= 330 && xloc <= 480){
-            if(yloc >= 230 && yloc <= 280){
+        System.out.println("xloc " + xloc);
+        System.out.println("yloc "+ yloc);
+        if(xloc >= 325 && xloc <= 475){
+            if(yloc >= 200 && yloc <= 250){
+
                 System.out.println("Clicked Play");
                 GameBoard.myGame.getContentPane().removeAll();
                 GameBoard.myGame.getContentPane().invalidate();
@@ -41,14 +44,14 @@ public class MenuInput implements MouseListener, ActionListener {
                 GameBoard.myGame.getContentPane().repaint();
             }
         }
-        if(xloc >= 330 && xloc <= 480){
-            if(yloc >= 330 && yloc <= 380){
+        if(xloc >= 325 && xloc <= 475){
+            if(yloc >= 300 && yloc <= 350){
                 // rules
                 System.out.println("Clicked Rules");
             }
         }
-        if(xloc >= 330 && xloc <= 480){
-            if(yloc >= 430 && yloc <= 480){
+        if(xloc >= 325 && xloc <= 475){
+            if(yloc >= 400 && yloc <= 450){
                 // exit
                 System.out.println("Clicked Exit");
                 System.exit(0);
