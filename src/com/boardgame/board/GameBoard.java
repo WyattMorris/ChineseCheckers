@@ -12,6 +12,7 @@ import javax.swing.*;
 
 
 import static java.awt.Color.*;
+import static java.awt.Color.red;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class GameBoard {
@@ -20,7 +21,6 @@ public class GameBoard {
     private static final int[] rowSpaces = {6,5,5,4,0,0,1,1,2,1,1,0,0,4,5,5,6};
     private static final LinkedList<Coordinates> myCoordinates = new LinkedList<>();
     private static final LinkedList<Piece> myList = new LinkedList<>();
-
     public static Piece selectedPiece = null;
     public static int playerCount = 6;
 
@@ -70,6 +70,37 @@ public class GameBoard {
                     }
                     if(moveSuccess){
                         selectedPiece.color = gray;
+                        Color winner = checkWin();
+                        String theWinner = null;
+
+                        if(winner != null){
+                            switch(winner.toString()){
+                                case "java.awt.Color[r=255,g=0,b=0]":
+                                    theWinner = "Red";
+                                    break;
+                                case "java.awt.Color[r=0,g=255,b=0]":
+                                    theWinner = "Green";
+                                    break;
+                                case "java.awt.Color[r=0,g=0,b=255]":
+                                    theWinner = "Blue";
+                                    break;
+                                case "java.awt.Color[r=255,g=255,b=255]":
+                                    theWinner = "White";
+                                    break;
+                                case "java.awt.Color[r=0,g=0,b=0]":
+                                    theWinner = "Black";
+                                    break;
+                                case "java.awt.Color[r=255,g=255,b=0]":
+                                    theWinner = "Yellow";
+                                    break;
+                                default:
+                                    break;
+
+                            }
+                        }
+                        if(theWinner != null){
+                            System.out.println("We have a winner! - " + theWinner);
+                        }
                     }
 
                     selectedPiece = null;
@@ -210,6 +241,111 @@ public class GameBoard {
             }
         }
     }
+
+    public static Color checkWin(){
+        int redWin = 0;
+        int blackWin = 0;
+        int blueWin = 0;
+        int greenWin = 0;
+        int whiteWin = 0;
+        int yellowWin = 0;
+
+        Color red = null;
+        Color black = null;
+        Color blue = null;
+        Color green = null;
+        Color white = null;
+        Color yellow = null;
+
+        for(Piece p : myList){
+            if(p.originalColor != gray){ // Only checking the outer triangles.
+                //switch on every color, increasing the counter if the pieces are filled with non-gray pieces
+                //and at least 1 non-original color. this will constitute a win by the non-original color.
+                switch (p.c){
+                    case "red": {
+                        if(p.originalColor == p.color){
+                            redWin++;
+                        } else if(p.color != gray){
+                            redWin++;
+                            red = p.color;
+                        }
+                        if(redWin == 20 && red != null) {
+                            return red;
+                        }
+                    }
+                        break;
+
+                    case "black": {
+                        if(p.originalColor == p.color){
+                            blackWin++;
+                        } else if(p.color != gray){
+                            blackWin++;
+                            black = p.color;
+                        }
+                        if(blackWin == 20 && black != null) {
+                            return black;
+                        }
+                    }
+                        break;
+
+                    case "blue": {
+                        if(p.originalColor == p.color){
+                            blueWin++;
+                        } else if(p.color != gray){
+                            blueWin++;
+                            blue = p.color;
+                        }
+                        if(blueWin == 20 && blue != null) {
+                            return blue;
+                        }
+                    }
+                        break;
+
+                    case "green": {
+                        if(p.originalColor == p.color){
+                            greenWin++;
+                        } else if(p.color != gray){
+                            greenWin++;
+                            green = p.color;
+                        }
+                        if(greenWin == 20 && green != null) {
+                            return green;
+                        }
+                    }
+                        break;
+
+                    case "white": {
+                        if(p.originalColor == p.color){
+                            whiteWin++;
+                        } else if(p.color != gray){
+                            whiteWin++;
+                            white = p.color;
+                        }
+                        if(whiteWin == 20 && white != null) {
+                            return white;
+                        }
+                    }
+                        break;
+
+                    case "yellow": {
+                        if(p.originalColor == p.color){
+                            yellowWin++;
+                        } else if(p.color != gray){
+                            yellowWin++;
+                            yellow = p.color;
+                        }
+                        if(yellowWin == 20 && yellow != null) {
+                            return yellow;
+                        }
+                    }
+                        break;
+
+                }
+            }
+        }
+        return null;
+    }
+
 
     static class Board extends JPanel{
         public Board(){

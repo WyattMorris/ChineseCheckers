@@ -19,7 +19,10 @@ public class Piece {
 
     int center_x;
     int center_y;
+
     public Color color;
+    public Color originalColor;
+
     Color lastColor;
     String c;
     LinkedList<Piece> myList;
@@ -36,6 +39,7 @@ public class Piece {
         this.center_y = center_y;
         this.color = color;
         this.c = clr;
+        this.originalColor = color;
         this.lastColor = color;
         myList.add(this);
         piece = new Ellipse2D.Double(xp,yp,32,32);
