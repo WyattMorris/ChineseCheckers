@@ -31,7 +31,9 @@ public class GameBoard {
     public static Rules rules;
     public static Menu menu;
     public static Players players;
+    public static Color turnColor = RED;
 
+    public static Color [] colors = {RED, YELLOW, WHITE, GREEN, BLUE, BLACK};
     public static void main(String[] args) {
         myGame = new JFrame("Chinese Checkers");
         menu = new Menu();
@@ -55,7 +57,7 @@ public class GameBoard {
             public void mousePressed(MouseEvent e) {
                 if(selectedPiece == null){
                     for(Piece p : myList){
-                        if (p.piece.contains(e.getPoint()) && p.color != gray) {
+                        if (p.piece.contains(e.getPoint()) && p.color != gray && p.color == turnColor) {
                             selectedPiece = p;
                         }
                     }
@@ -82,6 +84,65 @@ public class GameBoard {
                     }
                     if(moveSuccess){
                         selectedPiece.color = gray;
+                        //test
+                        if(turnColor == RED){
+                            if(playerCount == 2){
+                                turnColor = GREEN;
+                            }
+                            if(playerCount == 6){
+                                turnColor = YELLOW;
+                            }
+                        }
+                        else if(turnColor == YELLOW){
+                            if(playerCount == 3){
+                                turnColor = GREEN;
+                            }
+                            if(playerCount == 4){
+                                turnColor = WHITE;
+                            }
+                            if(playerCount == 6){
+                                turnColor = WHITE;
+                            }
+                        }
+                        else if(turnColor == WHITE){
+                            if(playerCount == 4){
+                                turnColor = BLUE;
+                            }
+                            if(playerCount == 6){
+                                turnColor = GREEN;
+                            }
+                        }
+                        else if(turnColor == GREEN){
+                            if(playerCount == 2){
+                                turnColor = RED;
+                            }
+                            if(playerCount == 3){
+                                turnColor = BLACK;
+                            }
+                            if(playerCount == 6){
+                                turnColor = BLUE;
+                            }
+                        }
+                        else if(turnColor == BLUE){
+                            if(playerCount == 4){
+                                turnColor = BLACK;
+                            }
+                            if(playerCount == 6){
+                                turnColor = BLACK;
+                            }
+                        }
+                        else if(turnColor == BLACK){
+                            if(playerCount == 3){
+                                turnColor = YELLOW;
+                            }
+                            if(playerCount == 4){
+                                turnColor = YELLOW;
+                            }
+                            if(playerCount == 6){
+                                turnColor = RED;
+                            }
+                        }
+                        //endtest
                         Color winner = checkWin();
                         String theWinner = null;
 
