@@ -6,6 +6,7 @@ Author: Wyatt Morris
 import com.boardgame.Main;
 import com.boardgame.menu.MenuFrame;
 import com.boardgame.menu.MenuInput;
+import com.boardgame.players.PlayersInput;
 import com.boardgame.rules.RulesInput;
 
 import java.awt.*;
@@ -28,18 +29,20 @@ public class GameBoard {
     private static final LinkedList<Coordinates> myCoordinates = new LinkedList<>();
     private static final LinkedList<Piece> myList = new LinkedList<>();
     public static Piece selectedPiece = null;
-    public static int playerCount = 6;
+    public static int playerCount;
     public static JFrame myGame;
     public static Board board;
     public static Rules rules;
     public static Menu menu;
+    public static Players players;
+
     public static void main(String[] args) {
         myGame = new JFrame("Chinese Checkers");
-        initializeCoordinates();
-        initializePieces();
         menu = new Menu();
-        board = new Board();
         rules = new Rules();
+        players = new Players();
+        players.addMouseListener(new PlayersInput());
+        board = new Board();
         myGame.add(menu);
         menu.addMouseListener(new MenuInput());
         rules.addMouseListener(new RulesInput());
@@ -472,9 +475,60 @@ public class GameBoard {
     }
 
 
+    // Playercount CLASS ***************************************************
+
+
+    static class Players extends JPanel{
+
+        public Players(){
+            super();
+        }
+        public void paintComponent(Graphics g){
+            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+            g.drawImage(img.getImage(), 0, 0, null);
+            super.paintComponent(g);
+            render(g);
+        }
+
+        public void render(Graphics g){
+            Font titleFont = new Font("Arial", Font.BOLD, 40);
+            Font btnFont = new Font("Arial", Font.PLAIN, 30);
+            g.setFont(titleFont);
+            g.setColor(Color.BLACK);
+            g.drawString("Player Count:", 50, 100);
 
 
 
+            g.drawRect(250, 250, 100, 100);
+            g.drawRect(400, 250, 100, 100);
+            g.drawRect(175, 400, 100, 100);
+            g.drawRect(325, 400, 100, 100);
+            g.drawRect(475, 400, 100, 100);
+
+
+            g.setColor(BLUE);
+            g.fillRect(250, 250, 100, 100);
+            g.setColor(GREEN);
+            g.fillRect(400, 250, 100, 100);
+            g.setColor(YELLOW);
+            g.fillRect(175, 400, 100, 100);
+            g.setColor(RED);
+            g.fillRect(325, 400, 100, 100);
+            g.setColor(ORANGE);
+            g.fillRect(475, 400, 100, 100);
+
+
+            g.setColor(Color.BLACK);
+            g.drawString("2", 290, 315);
+            g.drawString("3", 440, 315);
+            g.drawString("4", 215, 465);
+            g.drawString("5", 365, 465);
+            g.drawString("6", 515, 465);
+
+
+        }
+
+    }
 
 }
 
