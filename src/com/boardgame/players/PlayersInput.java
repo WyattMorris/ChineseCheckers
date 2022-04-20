@@ -46,19 +46,13 @@ public class PlayersInput implements MouseListener  {
                 initialize();
             }
         }
-         if(xloc >= 175 && xloc <= 275){
+         if(xloc >= 250 && xloc <= 350){
             if(yloc >= 400 && yloc <= 500){
                 GameBoard.playerCount = 4;
                 initialize();
             }
         }
-         if(xloc >= 325 && xloc <= 425){
-            if(yloc >= 400 && yloc <= 500){
-                GameBoard.playerCount = 5;
-                initialize();
-            }
-        }
-         if(xloc >= 475 && xloc <= 575){
+         if(xloc >= 400 && xloc <= 500){
             if(yloc >= 400 && yloc <= 500){
                 GameBoard.playerCount = 6;
                 initialize();

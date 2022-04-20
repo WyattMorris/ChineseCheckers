@@ -501,9 +501,8 @@ public class GameBoard {
 
             g.drawRect(250, 250, 100, 100);
             g.drawRect(400, 250, 100, 100);
-            g.drawRect(175, 400, 100, 100);
-            g.drawRect(325, 400, 100, 100);
-            g.drawRect(475, 400, 100, 100);
+            g.drawRect(250, 400, 100, 100);
+            g.drawRect(400, 400, 100, 100);
 
 
             g.setColor(BLUE);
@@ -511,19 +510,16 @@ public class GameBoard {
             g.setColor(GREEN);
             g.fillRect(400, 250, 100, 100);
             g.setColor(YELLOW);
-            g.fillRect(175, 400, 100, 100);
+            g.fillRect(250, 400, 100, 100);
             g.setColor(RED);
-            g.fillRect(325, 400, 100, 100);
-            g.setColor(ORANGE);
-            g.fillRect(475, 400, 100, 100);
+            g.fillRect(400, 400, 100, 100);
 
 
             g.setColor(Color.BLACK);
             g.drawString("2", 290, 315);
             g.drawString("3", 440, 315);
-            g.drawString("4", 215, 465);
-            g.drawString("5", 365, 465);
-            g.drawString("6", 515, 465);
+            g.drawString("4", 290, 465);
+            g.drawString("6", 440, 465);
 
 
         }
