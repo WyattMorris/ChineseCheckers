@@ -3,6 +3,9 @@ package com.boardgame.board;
 /*
 Author: Wyatt Morris
  */
+import com.boardgame.input.*;
+
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,15 +25,24 @@ public class GameBoard {
     private static final LinkedList<Coordinates> myCoordinates = new LinkedList<>();
     private static final LinkedList<Piece> myList = new LinkedList<>();
     public static Piece selectedPiece = null;
-    public static int playerCount = 6;
+    public static int playerCount;
+    public static JFrame myGame;
+    public static Board board;
+    public static Rules rules;
+    public static Menu menu;
+    public static Players players;
 
-    public static void main() {
-        JFrame myGame = new JFrame("Chinese Checkers");
-        initializeCoordinates();
-        initializePieces();
-        Board board = new Board();
+    public static void main(String[] args) {
+        myGame = new JFrame("Chinese Checkers");
+        menu = new Menu();
+        rules = new Rules();
+        players = new Players();
+        players.addMouseListener(new PlayersInput());
+        board = new Board();
+        myGame.add(menu);
+        menu.addMouseListener(new MenuInput());
+        rules.addMouseListener(new RulesInput());
         board.setBackground(lightGray);
-        myGame.add(board);
         myGame.setSize(800, 800);
         myGame.setVisible(true);
         board.addMouseListener(new MouseListener() {
@@ -370,6 +382,145 @@ public class GameBoard {
             }
         }
     }
+
+    // MENU CLASS ***************************************************
+    static class Menu extends JPanel {
+
+        public Menu() {
+            super();
+        }
+        public void paintComponent(Graphics g) {
+            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+            g.drawImage(img.getImage(), 0, 0, null);
+            super.paintComponent(g);
+            render(g);
+        }
+
+        public Rectangle playBtn = new Rectangle(325, 200, 150, 50);
+        public Rectangle rulesBtn = new Rectangle(325, 300, 150, 50);
+        public Rectangle exitBtn = new Rectangle(325, 400, 150, 50);
+
+        public void render(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+
+            Font titleFont = new Font("Arial", Font.BOLD, 45);
+            g.setFont(titleFont);
+            g.setColor(Color.BLACK);
+            g.drawString("Chinese Checkers", 200, 100);
+
+            Font buttonFont = new Font("arial", Font.BOLD, 30);
+            g.setFont(buttonFont);
+            g.drawString("Play", playBtn.x + 45, playBtn.y + 35);
+            g2d.draw(playBtn);
+            g.drawString("Rules", rulesBtn.x + 35, rulesBtn.y + 35);
+            g2d.draw(rulesBtn);
+            g.drawString("Exit", exitBtn.x + 45, exitBtn.y + 35);
+            g2d.draw(exitBtn);
+
+            Font creditFont = new Font("arial", Font.ITALIC, 15);
+            g.setFont(creditFont);
+            g.drawString("A Wyatt and Collin production (2022)", 10, 740);
+        }
+    }
+
+    // RULES CLASS ***************************************************
+
+    static class Rules extends JPanel{
+
+        public Rules(){
+            super();
+        }
+        public void paintComponent(Graphics g){
+            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+            g.drawImage(img.getImage(), 0, 0, null);
+            super.paintComponent(g);
+            render(g);
+        }
+        public Rectangle menuBtn = new Rectangle(290, 675, 250, 50);
+
+        public void render(Graphics g){
+            Graphics2D g2d = (Graphics2D) g;
+            Font titleFont = new Font("Arial", Font.ITALIC, 40);
+            Font textFont = new Font("Arial", Font.ITALIC, 20);
+            g.setFont(titleFont);
+            g.setColor(Color.BLACK);
+            g.drawString("Rules:", 50, 75);
+            Font btnFont = new Font("Arial", Font.ITALIC, 30);
+            g.setFont(textFont);
+            g.drawString("1.) Players take turns to move a single peg of their own colour.", 50, 110);
+            g.drawString("2.) In one turn a peg may either be simply moved into an adjacent hole", 50, 140);
+            g.drawString("OR it may make one or more hops over other pegs.", 50, 170);
+            g.drawString("3.) Where a hopping move is made, each hop must be over an adjacent peg", 50, 200);
+            g.drawString("and into a the vacant hole directly beyond it.", 50, 230);
+            g.drawString("4.) Each hop may be over any coloured peg including the player's own", 50, 260);
+            g.drawString("and can proceed in any one of the six directions. ", 50, 290);
+            g.drawString("5.) After each hop, the player may either finish or, if possible and desired,", 50, 320);
+            g.drawString("continue by hopping over another peg.", 50, 350);
+            g.drawString("6.) Occasionally, a player will be able to move a peg all the way from the", 50, 380);
+            g.drawString("starting triangle across the board and into the opposite triangle in one turn!\n", 50, 410);
+            g.drawString("7.)Pegs are never removed from the board. Once a peg has reached the ", 50, 440);
+            g.drawString("opposite triangle, it may not be moved out of the triangle - only within the triangle.", 50, 470);
+
+            g.setFont(btnFont);
+            g.drawString("Return to Menu", menuBtn.x + 25, menuBtn.y + 35);
+            g2d.draw(menuBtn);
+
+        }
+
+    }
+
+
+    // Playercount CLASS ***************************************************
+
+
+    static class Players extends JPanel{
+
+        public Players(){
+            super();
+        }
+        public void paintComponent(Graphics g){
+            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+            g.drawImage(img.getImage(), 0, 0, null);
+            super.paintComponent(g);
+            render(g);
+        }
+
+        public void render(Graphics g){
+            Font titleFont = new Font("Arial", Font.BOLD, 40);
+            Font btnFont = new Font("Arial", Font.PLAIN, 30);
+            g.setFont(titleFont);
+            g.setColor(Color.BLACK);
+            g.drawString("Player Count:", 50, 100);
+
+
+
+            g.drawRect(250, 250, 100, 100);
+            g.drawRect(400, 250, 100, 100);
+            g.drawRect(250, 400, 100, 100);
+            g.drawRect(400, 400, 100, 100);
+
+
+            g.setColor(BLUE);
+            g.fillRect(250, 250, 100, 100);
+            g.setColor(GREEN);
+            g.fillRect(400, 250, 100, 100);
+            g.setColor(YELLOW);
+            g.fillRect(250, 400, 100, 100);
+            g.setColor(RED);
+            g.fillRect(400, 400, 100, 100);
+
+
+            g.setColor(Color.BLACK);
+            g.drawString("2", 290, 315);
+            g.drawString("3", 440, 315);
+            g.drawString("4", 290, 465);
+            g.drawString("6", 440, 465);
+
+
+        }
+
+    }
+
 }
 
 
