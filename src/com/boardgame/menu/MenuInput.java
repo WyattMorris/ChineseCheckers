@@ -39,7 +39,7 @@ public class MenuInput implements MouseListener, ActionListener {
                 System.out.println("Clicked Play");
                 GameBoard.myGame.getContentPane().removeAll();
                 GameBoard.myGame.getContentPane().invalidate();
-                GameBoard.myGame.getContentPane().add(GameBoard.board);
+                GameBoard.myGame.getContentPane().add(GameBoard.players);
                 GameBoard.myGame.getContentPane().revalidate();
                 GameBoard.myGame.getContentPane().repaint();
             }
