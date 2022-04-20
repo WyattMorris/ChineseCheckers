@@ -18,20 +18,16 @@ public class RulesInput implements MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        //public Rectangle menuBtn = new Rectangle(290, 675, 250, 50);
         int xloc = e.getX();
         int yloc = e.getY();
-        System.out.println(xloc);
-        System.out.println(yloc);
         if(xloc >= 290 && xloc <= 700){
             if(yloc >= 675 && yloc <= 725){
-                // Menu
                 GameBoard.myGame.getContentPane().removeAll();
                 GameBoard.myGame.getContentPane().invalidate();
                 GameBoard.myGame.getContentPane().add(GameBoard.menu);
                 GameBoard.myGame.getContentPane().revalidate();
                 GameBoard.myGame.getContentPane().repaint();
-                System.out.println("Return to Menu");
+
             }
         }
     }

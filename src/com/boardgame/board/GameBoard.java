@@ -33,7 +33,6 @@ public class GameBoard {
     public static Players players;
     public static Color turnColor = RED;
 
-    public static Color [] colors = {RED, YELLOW, WHITE, GREEN, BLUE, BLACK};
     public static void main(String[] args) {
         myGame = new JFrame("Chinese Checkers");
         menu = new Menu();
@@ -451,7 +450,7 @@ public class GameBoard {
             super();
         }
         public void paintComponent(Graphics g) {
-            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
+            ImageIcon img = new ImageIcon("src/images/pexels-photo-326333.jpeg");
             g.drawImage(img.getImage(), 0, 0, null);
             super.paintComponent(g);
             render(g);
@@ -471,6 +470,13 @@ public class GameBoard {
 
             Font buttonFont = new Font("arial", Font.BOLD, 30);
             g.setFont(buttonFont);
+            g.setColor(GREEN);
+            g.fillRect(325, 200, 150, 50);
+            g.setColor(YELLOW);
+            g.fillRect(325, 300, 150, 50);
+            g.setColor(RED);
+            g.fillRect(325, 400, 150, 50);
+            g.setColor(Color.BLACK);
             g.drawString("Play", playBtn.x + 45, playBtn.y + 35);
             g2d.draw(playBtn);
             g.drawString("Rules", rulesBtn.x + 35, rulesBtn.y + 35);
@@ -506,7 +512,7 @@ public class GameBoard {
             g.setFont(titleFont);
             g.setColor(Color.BLACK);
             g.drawString("Rules:", 50, 75);
-            Font btnFont = new Font("Arial", Font.ITALIC, 30);
+            Font btnFont = new Font("Arial", Font.PLAIN, 30);
             g.setFont(textFont);
             g.drawString("1.) Players take turns to move a single peg of their own colour.", 50, 110);
             g.drawString("2.) In one turn a peg may either be simply moved into an adjacent hole", 50, 140);
@@ -523,6 +529,9 @@ public class GameBoard {
             g.drawString("opposite triangle, it may not be moved out of the triangle - only within the triangle.", 50, 470);
 
             g.setFont(btnFont);
+            g.setColor(RED);
+            g.fillRect(290, 675, 250, 50);
+            g.setColor(BLACK);
             g.drawString("Return to Menu", menuBtn.x + 25, menuBtn.y + 35);
             g2d.draw(menuBtn);
 
