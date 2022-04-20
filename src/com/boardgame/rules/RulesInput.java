@@ -13,7 +13,7 @@ import com.boardgame.board.GameBoard;
 import com.boardgame.menu.MenuFrame;
 
 //Collin's method to take in mouse clicks on Rules Page.
-public class RulesInput implements MouseListener  {
+public class RulesInput implements MouseListener {
 
 
     @Override

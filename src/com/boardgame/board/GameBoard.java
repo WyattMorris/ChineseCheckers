@@ -7,8 +7,7 @@ import com.boardgame.Main;
 import com.boardgame.menu.MenuFrame;
 import com.boardgame.menu.MenuInput;
 import com.boardgame.players.PlayersInput;
-import com.boardgame.rules.RulesInput;
-
+import com.boardgame.rules.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
