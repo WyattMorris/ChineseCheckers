@@ -45,7 +45,6 @@ public class Piece {
         piece = new Ellipse2D.Double(xp,yp,32,32);
     }
 
-    //Collin
     public void move(int xPos, int yPos){
         xLast = this.xPos;
         yLast = this.yPos;
