@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
+import java.util.Random;
 import javax.swing.*;
 
 
@@ -37,6 +38,7 @@ public class GameBoard {
 
     public static void main(String[] args) {
         myGame = new JFrame("Chinese Checkers");
+
         menu = new Menu();
         rules = new Rules();
         players = new Players();
@@ -60,33 +62,14 @@ public class GameBoard {
                     for(Piece p : myList){
                         if (p.piece.contains(e.getPoint()) && p.color != gray && p.color == turnColor) {
                             selectedPiece = p;
-                            System.out.println("Piece selected");
+                            //System.out.println("Piece selected");
                         }
                     }
                 }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if(selectedPiece != null) {
-                    boolean moveSuccess = false;
-                    for(Piece p: myList){
-                        if(p.piece.contains(e.getPoint())){
-                            if(p.color != selectedPiece.color){
-                                moveSuccess = true;
-                                p.color = selectedPiece.color;
-                            }
-                            board.repaint();
-
-                        } else {
-                            selectedPiece.x = selectedPiece.xLast;
-                            selectedPiece.y = selectedPiece.yLast;
-                            board.repaint();
-                        }
-                    }
-                    if(moveSuccess){
-                        selectedPiece.color = gray;
-                        //test
+                int xloc = e.getX();
+                int yloc = e.getY();
+                if(xloc >= 500 && xloc <= 745){
+                    if(yloc >= 650 && yloc <= 700) {
                         if(turnColor == RED){
                             if(playerCount == 2){
                                 turnColor = GREEN;
@@ -144,7 +127,90 @@ public class GameBoard {
                                 turnColor = RED;
                             }
                         }
-                        //endtest
+                        board.repaint();
+                    }
+                    }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(selectedPiece != null) {
+                    boolean moveSuccess = false;
+                    for(Piece p: myList){
+                        if(p.piece.contains(e.getPoint())){
+                            if(p.color != selectedPiece.color && p.color == gray){
+                                moveSuccess = true;
+                                p.color = selectedPiece.color;
+                            }
+                            board.repaint();
+
+                        } else {
+                            selectedPiece.x = selectedPiece.xLast;
+                            selectedPiece.y = selectedPiece.yLast;
+                            board.repaint();
+                        }
+                    }
+                    if(moveSuccess){
+                        selectedPiece.color = gray;
+                        //Automatic end turn
+                        /*if(turnColor == RED){
+                            if(playerCount == 2){
+                                turnColor = GREEN;
+                            }
+                            if(playerCount == 6){
+                                turnColor = YELLOW;
+                            }
+                        }
+                        else if(turnColor == YELLOW){
+                            if(playerCount == 3){
+                                turnColor = GREEN;
+                            }
+                            if(playerCount == 4){
+                                turnColor = WHITE;
+                            }
+                            if(playerCount == 6){
+                                turnColor = WHITE;
+                            }
+                        }
+                        else if(turnColor == WHITE){
+                            if(playerCount == 4){
+                                turnColor = BLUE;
+                            }
+                            if(playerCount == 6){
+                                turnColor = GREEN;
+                            }
+                        }
+                        else if(turnColor == GREEN){
+                            if(playerCount == 2){
+                                turnColor = RED;
+                            }
+                            if(playerCount == 3){
+                                turnColor = BLACK;
+                            }
+                            if(playerCount == 6){
+                                turnColor = BLUE;
+                            }
+                        }
+                        else if(turnColor == BLUE){
+                            if(playerCount == 4){
+                                turnColor = BLACK;
+                            }
+                            if(playerCount == 6){
+                                turnColor = BLACK;
+                            }
+                        }
+                        else if(turnColor == BLACK){
+                            if(playerCount == 3){
+                                turnColor = YELLOW;
+                            }
+                            if(playerCount == 4){
+                                turnColor = YELLOW;
+                            }
+                            if(playerCount == 6){
+                                turnColor = RED;
+                            }
+                        }*/
+
                         winner = checkWin();
 
                         if(winner != null){
@@ -420,6 +486,16 @@ public class GameBoard {
                 String colorTurn = colorToString(turnColor.toString());
                 assert colorTurn != null;
                 g.drawString(colorTurn, 200, 100);
+                g.fillRect(500, 650, 245, 50);
+                g.setColor(BLACK);
+                g.drawRect(500, 650, 245, 50);
+                g.drawString("Turn: ", 75, 100);
+                if(colorTurn.equals("Black")){
+                    g.setColor(WHITE);
+                    g.drawString("End Turn", 525, 690);
+                }
+                else
+                g.drawString("End Turn", 525, 690);
             }
 
 
@@ -445,8 +521,6 @@ public class GameBoard {
             super();
         }
         public void paintComponent(Graphics g) {
-            ImageIcon img = new ImageIcon("src/images/pexels-photo-326333.jpeg");
-            g.drawImage(img.getImage(), 0, 0, null);
             super.paintComponent(g);
             render(g);
         }
@@ -457,10 +531,13 @@ public class GameBoard {
 
         public void render(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
-
+            decorate(g);
             Font titleFont = new Font("Arial", Font.BOLD, 45);
+            g.setColor(WHITE);
+            g.fillRect(190, 60, 410, 50);
             g.setFont(titleFont);
             g.setColor(Color.BLACK);
+            g.drawRect(190, 60, 410, 50);
             g.drawString("Chinese Checkers", 200, 100);
 
             Font buttonFont = new Font("arial", Font.BOLD, 30);
@@ -493,8 +570,6 @@ public class GameBoard {
             super();
         }
         public void paintComponent(Graphics g){
-            ImageIcon img = new ImageIcon("src\\images\\pexels-photo-326333.jpeg");
-            g.drawImage(img.getImage(), 0, 0, null);
             super.paintComponent(g);
             render(g);
         }
@@ -502,6 +577,7 @@ public class GameBoard {
 
         public void render(Graphics g){
             Graphics2D g2d = (Graphics2D) g;
+            //decorate(g);
             Font titleFont = new Font("Arial", Font.ITALIC, 40);
             Font textFont = new Font("Arial", Font.ITALIC, 20);
             g.setFont(titleFont);
@@ -509,19 +585,15 @@ public class GameBoard {
             g.drawString("Rules:", 50, 75);
             Font btnFont = new Font("Arial", Font.PLAIN, 30);
             g.setFont(textFont);
-            g.drawString("1.) Players take turns to move a single peg of their own colour.", 50, 110);
-            g.drawString("2.) In one turn a peg may either be simply moved into an adjacent hole", 50, 140);
-            g.drawString("OR it may make one or more hops over other pegs.", 50, 170);
-            g.drawString("3.) Where a hopping move is made, each hop must be over an adjacent peg", 50, 200);
+            g.drawString("1.) Players take turns to move a single marble of their own color.", 50, 110);
+            g.drawString("2.) In one turn a marble may either be simply moved into an adjacent hole", 50, 140);
+            g.drawString("OR it may make one or more hops over other marbles.", 50, 170);
+            g.drawString("3.) Where a hopping move is made, each hop must be over an adjacent marble", 50, 200);
             g.drawString("and into a the vacant hole directly beyond it.", 50, 230);
-            g.drawString("4.) Each hop may be over any coloured peg including the player's own", 50, 260);
+            g.drawString("4.) Each hop may be over any colored marble including the player's own", 50, 260);
             g.drawString("and can proceed in any one of the six directions. ", 50, 290);
-            g.drawString("5.) After each hop, the player may either finish or, if possible and desired,", 50, 320);
-            g.drawString("continue by hopping over another peg.", 50, 350);
-            g.drawString("6.) Occasionally, a player will be able to move a peg all the way from the", 50, 380);
-            g.drawString("starting triangle across the board and into the opposite triangle in one turn!\n", 50, 410);
-            g.drawString("7.) Pegs are never removed from the board. Once a peg has reached the ", 50, 440);
-            g.drawString("opposite triangle, it may not be moved out of the triangle - only within the triangle.", 50, 470);
+
+
 
             g.setFont(btnFont);
             g.setColor(RED);
@@ -552,6 +624,7 @@ public class GameBoard {
 
         public void render(Graphics g){
             Font titleFont = new Font("Arial", Font.BOLD, 40);
+           // decorate(g);
             g.setFont(titleFont);
             g.setColor(Color.BLACK);
             g.drawString("Player Count:", 50, 100);
@@ -603,6 +676,24 @@ public class GameBoard {
                 return null;
 
         }
+    }
+
+    static void decorate(Graphics g){
+        int px = 0;
+        int py = 0;
+        int color = 0;
+        Color [] colors = {RED, BLUE, YELLOW, GREEN, WHITE};
+        Random rand = new Random();
+        for(int i = 0; i< 100; i++){
+            color = rand.nextInt(5);
+            g.setColor(colors[color]);
+            py = rand.nextInt(700);
+            px = rand.nextInt(700);
+            g.fillOval(px, py, 32, 32);
+            g.setColor(BLACK);
+            g.drawOval(px, py, 32, 32);
+        }
+
     }
 
 }
